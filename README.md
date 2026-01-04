@@ -1,64 +1,30 @@
-# MetauServer
+# NFT Marketplace Backend API
 
-# Overview
+## 🔗 Project Overview
 
-The MetauServer serves as the backend for the Metaverse course offered by the University of Nicosia and supports
-authorization and registration of users, as well as exam orchestration for the course.
+**NFT Marketplace API** is a robust Node.js backend designed to power decentralized marketplaces. It acts as the bridge between the blockchain and the frontend, handling off-chain data (user profiles, metadata), authentication, and cloud storage integration.
 
-# Deploying MetaUServer locally
+## 🔑 Key Features
 
-For deploying the MetauServer locally:
+- **Security**: Authentication middleware (`authenticate.js`) ensuring secure API access.
+- **Cloud Integration**: AWS Services integration (`aws_get_secret.js`, `s3-prefetch`) for secure secret management and media storage.
+- **Microservices Ready**: Structured with Service-Repository pattern (`services/`, `routes/`) for scalability.
+- **Database**: Integration with SQL/NoSQL databases via `db.js`.
 
-- Create a new .env file under folder 'api' with the following structure:
+## 🛠️ Tech Stack & Skills
 
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Cloud**: AWS (S3, Secrets Manager)
+- **Architecture**: REST API, MVC Service Layer
+
+## 💡 Innovation
+
+While smart contracts handle transfers, a performant marketplace requires a powerful off-chain indexer and API. This project demonstrates **Backend System Design** skills, specifically tailored for the unique requirements of Web3 applications (speed, caching, and security).
+
+## 🚀 Setup
+
+```bash
+yarn install
+yarn start
 ```
-DB_LOC='<part of db connection URL with format "mongodb+srv://<URL part>">'
-DB_USER='<db username>'
-DB_PASS='<db password>'
-JWT_SECRET='<64-char long hex string>'
-```
-
-- Install dependencies
-    - cd into `api`: `cd api`
-    - run yarn to install dependencies: `yarn`
-- Run the start script to start the server from within the 'api' folder: `yarn start`
-- Access the endpoints through port `3000`: `http://localhost:3000/`
-    - Example: `http://localhost:3000/user/register`
-
-- Available endpoints:
-    - `/user/register`, `POST`: Returns user nonce
-        - Body: `{public_key}`
-        - If
-            - public key exists and token has not expired
-            - public key exists but token has expired, update the nonce
-            - public key does not exist, create a new user with the public key and new nonce
-        - Returns error if failed to update nonce or insert user
-
-    - `/user/signin`, `POST`: Returns generated user JWT using `update_at` time and expiration date one hour later
-        - Body: `{public_key, domain, nonce, msg, signature}`
-        - Return error if
-            - retrieved public key using nonce does not match request public key (redirect)
-            - no user is found for nonce
-            - token has expired
-            - generated `hash(domain, nonce, msg)` does not match signature
-
-# Deploying dummy React client locally
-
-- Install dependencies
-    - cd into `client`: `cd client`
-    - run yarn to install dependencies: `yarn`
-- Run the start script to start the front end from within the 'client' folder: `yarn start`
-- Access the front end through port `3006`: `https://localhost:3006`
-
-# Architecture
-
----
-
-TO BE FILLED
-
-# Files description
-
----
-
-TO BE FILLED
-
